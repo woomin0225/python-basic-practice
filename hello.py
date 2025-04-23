@@ -1,1 +1,2 @@
-'print("Hello, GitHub!")' 
+# test.py
+print("Hello, GitHub!")
