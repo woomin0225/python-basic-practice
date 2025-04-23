@@ -1,1 +1,16 @@
-"# Python Practice" 
+# Python Basic Practice
+
+이 저장소는 Python 기초를 연습하기 위한 첫 GitHub 프로젝트입니다.
+
+## 파일 설명
+- `hello.py`: "Hello, GitHub!"을 출력하는 간단한 파이썬 스크립트
+
+## 목표
+- Python 기초 문법 연습
+- GitHub 사용법 익히기
+- 매주 하나씩 파일 업로드해서 학습 추적
+
+## 다음 계획
+- 변수, 자료형, 조건문, 반복문 연습
+- 각각을 `.py` 파일로 나눠서 업로드
+- 꾸준히 README 업데이트
