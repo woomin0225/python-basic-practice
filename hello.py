@@ -1,2 +1,2 @@
-# test.py
+# hello.py
 print("Hello, GitHub!")

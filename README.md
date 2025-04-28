@@ -4,6 +4,8 @@
 
 ## 파일 설명
 - `hello.py`: "Hello, GitHub!"을 출력하는 간단한 파이썬 스크립트
+- `calculator_v1.py`: 사칙연산 계산기 프로그램
+- `calculator_v2.py`: v1 보다 기능,확장성,범위를 보완한 프로그램
 
 ## 목표
 - Python 기초 문법 연습

@@ -1,5 +1,5 @@
-#main.py
-#계산기 프로그램 만들기
+# calculator_1.py
+# 계산기 프로그램 만들기
 # 두 수를 입력받아 사칙연산을 수행하는 계산기 프로그램
 # 사칙연산을 수행하는 함수 정의
 
@@ -48,7 +48,7 @@ while True:
                 print(f"연산 결과는 {num1}{simbol}{num2} = {multi(num1, num2)} 입니다")
                 break
 
-            # 사용자에게 자리수 입력 받기
+# 사용자에게 소수점 자리수 입력 받기
 
             elif simbol == "/":
                 while True:
