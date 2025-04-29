@@ -1,7 +1,7 @@
 # Python Basic Practice
 
 이 저장소는 Python 기초를 연습하기 위한 첫 GitHub 프로젝트입니다.
-
+모든 파일의 내용은 학습을 목적으로 챗gpt 의 도움을 받았지만, 복사 후 붙여넣기는 사용하지 않으며 학습을 목적으로만 사용하였음을 안내 드립니다,
 ## 파일 설명
 - `hello.py`: "Hello, GitHub!"을 출력하는 간단한 파이썬 스크립트
 - `calculator_v1.py`: 사칙연산 계산기 프로그램

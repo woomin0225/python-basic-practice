@@ -33,7 +33,7 @@ def show_help():
 
 show_help()
 import time
-
+# 첫번째에 숫자가 아닌 언어를 입력해도 저장하는 현상 발견
 save = input("숫자를 입력하세요: ")
 
 # 몇 번 입력 받을지 사용자의 선택에 맞기기 위해 반복문 설정
