@@ -2,6 +2,9 @@
 # 개선된 계산기 프로그램 만들기
 # 여러 숫자를 입력받아 연산을 수행하는 계산기 프로그램
 
+import time
+import sys
+
 # 함수 정의
 def plus(a, b):
     return a + b
@@ -31,63 +34,79 @@ def show_help():
         print("="*75)
         print()
 
-show_help()
-import time
-# 첫번째에 숫자가 아닌 언어를 입력해도 저장하는 현상 발견
-save = input("숫자를 입력하세요: ")
+# 명령어 함수 정리
 
-# 몇 번 입력 받을지 사용자의 선택에 맞기기 위해 반복문 설정
-while True:
-        print(f"{save}")
-        operator = input("연산자를 입력하세요: ")
-        
-        if operator.lower() == "help":
+def commands(cmd):
+        if cmd.lower() == "help":
                 show_help()
+                return True
+        elif cmd.lower() == "exit":
+                print("프로그램이 3초뒤 종료됩니다.")
+                for i in range(3,0,-1):
+                        print(f"{i}...")
+                        time.sleep(1)
+                sys.exit()
+        elif cmd.lower() == "back":
+               return "back"
+        return False
+        #back 입력해도 초기화면으로 돌아가지 않음
+
+# 카운트다운을 위한 설정
+
+show_help()
+
+while True:
+        save = input("숫자를 입력하세요: ")
+        if commands(save):
                 continue
 
-        if operator.lower() == "exit":
-                print("프로그램이 3초 뒤에 종료됩니다.")
-                for i in range(3, 0, -1):
-                       print(f"{i}...")
-                       time.sleep(1)
-                print("프로그램을 종료합니다.")
-                exit()
+        if not save.replace(".", "", 1).isdigit():
+                print("숫자만 입력할 수 있습니다!")
+                continue
 
-        if operator == "=":
-                try:
-                        result = eval(save)
-                        print(f"연산결과는 {save} = {result} 입니다.")
-                
-                except ZeroDivisionError:
-                        print("0으로 나눌 수 없습니다.")
-                except Exception as e:
-                        print(f"에러 발생: {e}")
-                break
+        # 몇 번 입력 받을지 사용자의 선택에 맞기기 위해 반복문 설정
 
-        elif operator not in ["+","-","*","/"]:
-              print("올바른 연산자를 입력하세요! ( + , - , * , / 만 허용)")
-              continue
-
-        if operator.lower() == "exit":
-                print("프로그램을 종료합니다.")
-                break
-
-        print(f"{save}{operator} ")
         while True:
-                number = input("숫자를 입력하세요: ")
-                if number.lower() == "help":
-                       show_help()
+                print(f"{save}")
+                operator = input("연산자를 입력하세요: ")
+                if commands(operator):
                        continue
 
-                if number.lower() == "exit":
-                       print("프로그램을 종료합니다.")
-                       exit()
+                if operator == "=":
+                        try:
+                                result = eval(save)
+                                print(f"연산결과는 {save} = {result} 입니다.")
+                                end = (input("초기 화면으로 돌아가기 : back\n프로그램 종료하기 : exit\n"))
+                                if commands(end):
+                                        continue
+                        except ZeroDivisionError:
+                                print("0으로 나눌 수 없습니다.")
+                        except Exception as e:
+                                print(f"에러 발생: {e}")
+                        break
 
-                if not number.replace(".", "", 1).isdigit():
-                        print("숫자만 입력할 수 있습니다!")
+                elif operator not in ["+","-","*","/"]:
+                        print("올바른 연산자를 입력하세요! ( + - * / 만 허용)")
                         continue
+
+                print(f"{save}{operator} ")
+
+                while True:
+                        number = input("숫자를 입력하세요: ")
+                        if commands(number):
+                                continue
+                        if not number.replace(".", "", 1).isdigit():
+                                print("숫자만 입력할 수 있습니다!")
+                                continue
                 
-                break
+                        save += operator + number
+                        break
+
+
+
+
+        
+
         
         
-        save += operator + number
+
