@@ -47,6 +47,7 @@ def commands(cmd):
                         print(f"{i}...")
                         time.sleep(1)
                 sys.exit()
+                
         elif cmd.lower() == "back":
                return "back"
         return False
@@ -133,16 +134,16 @@ while True:
                         number = input("숫자를 입력하세요: ")
                         if number.lower() == "sqrt":
                                 num = input("제곱근을 구할 숫자를 입력하세요: ")
-                        if commands(num):
-                                continue
-                        try:
-                                result = math.sqrt(float(num))
-                                print(f"{num}의 제곱근은 {result}입니다.")
-                        except ValueError:
-                                print("음수의 제곱근은 계산할 수 없습니다.")
-                        except Exception as e:
-                                print(f"에러 발생: {e}")
-                                continue
+                                if commands(num):
+                                        continue
+                                try:
+                                        result = math.sqrt(float(number))
+                                        print(f"{num}의 제곱근은 {result}입니다.")
+                                except ValueError:
+                                        print("음수의 제곱근은 계산할 수 없습니다.")
+                                except Exception as e:
+                                        print(f"에러 발생: {e}")
+                                        continue
                         if commands(number):
                                 continue
                         if not number.replace(".", "", 1).isdigit():
