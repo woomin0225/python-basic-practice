@@ -8,4 +8,4 @@ character1,character2 = input().split()
 char1 = str(character1)
 char2 = str(character2)
 
-print(f"{char2}, {char1}")
+print(f"{char2} {char1}")
