@@ -5,17 +5,14 @@
 import time
 import sys
 import math
-# 함수 정의
-def plus(a, b):
-    return a + b
-def minus(a, b):
-    return a - b
-def multi(a, b):
-    return a * b
-def divi(a, b):
-    if b == 0:
-        return "0으로 나눌수 없습니다."
-    return a / b
+
+def is_number(s):
+        try:
+              float(s)
+              return True
+        except:
+               return False
+
 # 계산기 사용 설명서
 def show_help():
         print("="*75)
@@ -51,109 +48,125 @@ def commands(cmd):
         elif cmd.lower() == "back":
                return "back"
         return False
-        #back 입력해도 초기화면으로 돌아가지 않음
 
+history = []
 # 카운트다운을 위한 설정
-
-show_help()
-
 while True:
-        save = input("숫자를 입력하세요: ")
-        if save.lower() == "sqrt":
-                num = input("제곱근을 구할 숫자를 입력해주세요: ")
-                if commands(num):
-                      continue
-                try:
-                      result = math.sqrt(float(num))
-                      print(f"{num}의 제곱근은 {result}입니다.")
-                except ValueError:
-                      print("음수의 제곱근은 계산할 수 없습니다.")
-                except Exception as e:
-                      print(f"에러 발생: {e}")
-                continue
-
-        cmd_result = commands(save)
-        if cmd_result == "back":
-                continue
-        elif cmd_result:
-                continue
-
-        if not save.replace(".", "", 1).isdigit():
-                print("숫자만 입력할 수 있습니다!")
-                continue
-
-
-        # 몇 번 입력 받을지 사용자의 선택에 맞기기 위해 반복문 설정
-
-        while True:
-                print(f"{save}")
-                operator = input("연산자를 입력하세요: ")
-                cmd_result = commands(operator)
-                if cmd_result == "back":
-                        continue
-                elif cmd_result:
-                        continue
-                if operator.lower() == "sqrt":
-                        num = input("제곱근을 구할 숫자를 입력해주세요: ")
-                        if commands(num):
-                              continue
-                        try:
-                                result = math.sqrt(float(num))
-                                print(f"{num}의 제곱근은 {result}입니다.")
-                        except ValueError:
-                                print("음수의 제곱근은 계산할 수 없습니다.")
-                        except Exception as e:
-                                print(f"에러 발생: {e}")
-                        continue
-
-                if operator == "=":
-                        try:
-                                result = eval(save)
-                                print(f"연산결과는 {save} = {result} 입니다.")
-                                end = (input("초기 화면으로 돌아가기 : back\n프로그램 종료하기 : exit\n"))
-                                cmd_result = commands(end)
-                                if cmd_result == "back":
-                                       break
-                                elif cmd_result:
-                                       continue
-                                if commands(end):
-                                        continue
-                        except ZeroDivisionError:
-                                print("0으로 나눌 수 없습니다.")
-                        except Exception as e:
-                                print(f"에러 발생: {e}")
-                        break
-
-                elif operator not in ["+","-","*","/"]:
-                        print("올바른 연산자를 입력하세요! ( + - * / = 만 허용)")
-                        continue
-
-                print(f"{save}{operator} ")
-
+       
+        show_help()
+        cmd = input("명령어를 입력하세요 (start / load / exit): ").lower()
+        if cmd == "start":
                 while True:
-                        number = input("숫자를 입력하세요: ")
-                        if number.lower() == "sqrt":
-                                num = input("제곱근을 구할 숫자를 입력하세요: ")
+                        save = input("숫자를 입력하세요: ")
+                        if save.lower() == "sqrt":
+                                num = input("제곱근을 구할 숫자를 입력해주세요: ")
                                 if commands(num):
                                         continue
                                 try:
-                                        result = math.sqrt(float(number))
+                                        result = math.sqrt(float(num))
                                         print(f"{num}의 제곱근은 {result}입니다.")
                                 except ValueError:
                                         print("음수의 제곱근은 계산할 수 없습니다.")
                                 except Exception as e:
                                         print(f"에러 발생: {e}")
-                                        continue
-                        if commands(number):
                                 continue
-                        if not number.replace(".", "", 1).isdigit():
+
+                        cmd_result = commands(save)
+                        if cmd_result == "back":
+                                continue
+                        elif cmd_result:
+                                continue
+                        if not is_number(save):
                                 print("숫자만 입력할 수 있습니다!")
                                 continue
+
+        # 몇 번 입력 받을지 사용자의 선택에 맞기기 위해 반복문 설정
+
+                        while True:
+                                print(f"{save}")
+                                operator = input("연산자를 입력하세요: ")
+                                cmd_result = commands(operator)
+                                if cmd_result == "back":
+                                        break
+                                elif cmd_result:
+                                        continue
+                                if operator.lower() == "sqrt":
+                                        num = input("제곱근을 구할 숫자를 입력해주세요: ")
+                                        if commands(num) == "back":
+                                                break
+                                        try:
+                                                result = math.sqrt(float(num))
+                                                print(f"{num}의 제곱근은 {result}입니다.")
+                                        except ValueError:
+                                                print("음수의 제곱근은 계산할 수 없습니다.")
+                                        except Exception as e:
+                                                print(f"에러 발생: {e}")
+                                        continue
+
+                                if operator == "=":
+                                        try:
+                                                result = eval(save)
+                                                print(f"연산결과는 {save} = {result} 입니다.")
+                                                history.append(f"{save} = {result}")
+                                                end = (input("초기 화면으로 돌아가기 : back\n프로그램 종료하기 : exit\n"))
+                                                cmd_result = commands(end)
+                                                if cmd_result == "back":
+                                                        break
+                                                elif cmd_result:
+                                                        continue
+                                        
+                                        except ZeroDivisionError:
+                                                print("0으로 나눌 수 없습니다.")
+                                        except Exception as e:
+                                                print(f"에러 발생: {e}")
+                                        break
+
+                                elif operator not in ["+","-","*","/"]:
+                                        print("올바른 연산자를 입력하세요! ( + - * / = 만 허용)")
+                                        continue
+
+                                print(f"{save}{operator} ")
+
+                                while True:
+                                        number = input("숫자를 입력하세요: ")
+                                        if number.lower() == "sqrt":
+                                                num = input("제곱근을 구할 숫자를 입력하세요: ")
+                                                if commands(num):
+                                                        continue
+                                                try:
+                                                        result = math.sqrt(float(num))
+                                                        print(f"{num}의 제곱근은 {result}입니다.")
+                                                except ValueError:
+                                                        print("음수의 제곱근은 계산할 수 없습니다.")
+                                                except Exception as e:
+                                                        print(f"에러 발생: {e}")
+                                                        continue
+                                        if commands(number):
+                                                continue
+                                        if not is_number(number):
+                                                print("숫자만 입력할 수 있습니다!")
+                                                continue
                 
-                        save += operator + number
-                        break
+                                        save += operator + number
+                                        break
 
 
+        elif cmd == "load":
+                if not history:
+                        print("저장된 기록이 없습니다.")
+                else:
+                        print("=========저장된 계산 기록=========")
+                        for recode in history:
+                                print(recode)
+        elif cmd == "exit":
+                commands("exit")
+        elif cmd == "help":
+                show_help()
+        elif cmd == "back":
+                continue
+        else:
+                print("알수없는 명령어 입니다.")
+        
 
 
         
